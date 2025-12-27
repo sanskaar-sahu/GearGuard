@@ -184,5 +184,8 @@ ISC
 
 ## Contributing
 
-This is a project for learning and demonstration purposes.
+**Ayush Sahu**
+**Shreyansh Sahu**
+**Sanskar Sahu**
+
 
