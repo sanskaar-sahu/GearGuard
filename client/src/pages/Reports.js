@@ -15,6 +15,7 @@ const Reports = () => {
 
   const fetchReports = async () => {
     try {
+      setLoading(true);
       const [teamRes, categoryRes, statusRes] = await Promise.all([
         axios.get('http://localhost:5000/api/reports/requests-per-team'),
         axios.get('http://localhost:5000/api/reports/requests-per-category'),
@@ -25,6 +26,7 @@ const Reports = () => {
       setRequestsByStatus(statusRes.data);
     } catch (error) {
       console.error('Error fetching reports:', error);
+      alert('Error fetching reports: ' + (error.response?.data?.message || error.message));
     } finally {
       setLoading(false);
     }

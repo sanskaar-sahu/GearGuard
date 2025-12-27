@@ -10,6 +10,7 @@ const Layout = ({ children }) => {
 
   const tabs = [
     { path: '/dashboard', label: 'Dashboard' },
+    { path: '/kanban', label: 'Kanban Board' },
     { path: '/equipment', label: 'Equipment' },
     { path: '/maintenance-schedule', label: 'Maintenance Schedule' },
     { path: '/work-center', label: 'Work Center' },

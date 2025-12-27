@@ -43,12 +43,14 @@ const RequestForm = () => {
 
   const fetchDropdownData = async () => {
     try {
-      const [equipmentRes, teamsRes] = await Promise.all([
+      const [equipmentRes, teamsRes, usersRes] = await Promise.all([
         axios.get('http://localhost:5000/api/equipment'),
         axios.get('http://localhost:5000/api/teams'),
+        axios.get('http://localhost:5000/api/users'),
       ]);
       setEquipment(equipmentRes.data);
       setTeams(teamsRes.data);
+      setUsers(usersRes.data);
     } catch (error) {
       console.error('Error fetching dropdown data:', error);
     }
@@ -66,8 +68,8 @@ const RequestForm = () => {
         priority: data.priority || 'Medium',
         assigned_to: data.assigned_to || '',
         team_id: data.team_id || '',
-        scheduled_date: data.scheduled_date || '',
-        due_date: data.due_date || '',
+        scheduled_date: data.scheduled_date ? data.scheduled_date.split('T')[0] : '',
+        due_date: data.due_date ? data.due_date.split('T')[0] : '',
         duration_hours: data.duration_hours || '',
         location: data.location || '',
         frequency: data.frequency || '',
@@ -168,6 +170,20 @@ const RequestForm = () => {
 
         <div className="form-row">
           <div className="form-group">
+            <label>Assigned To</label>
+            <select
+              value={formData.assigned_to}
+              onChange={(e) => setFormData({ ...formData, assigned_to: e.target.value })}
+            >
+              <option value="">Select User</option>
+              {users.map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.name} ({user.role})
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
             <label>Team</label>
             <select
               value={formData.team_id}
@@ -181,6 +197,9 @@ const RequestForm = () => {
               ))}
             </select>
           </div>
+        </div>
+
+        <div className="form-row">
           <div className="form-group">
             <label>Status</label>
             <select
@@ -192,6 +211,14 @@ const RequestForm = () => {
               <option value="Repaired">Repaired</option>
               <option value="Scrap">Scrap</option>
             </select>
+          </div>
+          <div className="form-group">
+            <label>Location</label>
+            <input
+              type="text"
+              value={formData.location}
+              onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+            />
           </div>
         </div>
 
@@ -215,14 +242,6 @@ const RequestForm = () => {
         </div>
 
         <div className="form-row">
-          <div className="form-group">
-            <label>Location</label>
-            <input
-              type="text"
-              value={formData.location}
-              onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-            />
-          </div>
           <div className="form-group">
             <label>Duration (Hours)</label>
             <input

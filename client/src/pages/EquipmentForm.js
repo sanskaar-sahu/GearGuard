@@ -39,14 +39,16 @@ const EquipmentForm = () => {
 
   const fetchDropdownData = async () => {
     try {
-      const [categoriesRes, teamsRes, companiesRes] = await Promise.all([
+      const [categoriesRes, teamsRes, companiesRes, usersRes] = await Promise.all([
         axios.get('http://localhost:5000/api/categories'),
         axios.get('http://localhost:5000/api/teams'),
         axios.get('http://localhost:5000/api/companies').catch(() => ({ data: [] })),
+        axios.get('http://localhost:5000/api/users'),
       ]);
       setCategories(categoriesRes.data);
       setTeams(teamsRes.data);
       setCompanies(companiesRes.data);
+      setUsers(usersRes.data);
     } catch (error) {
       console.error('Error fetching dropdown data:', error);
     }
@@ -67,8 +69,8 @@ const EquipmentForm = () => {
         location: data.location || '',
         shop_detail: data.shop_detail || '',
         maintenance_type: data.maintenance_type || '',
-        assigned_date: data.assigned_date || '',
-        purchase_date: data.purchase_date || '',
+        assigned_date: data.assigned_date ? data.assigned_date.split('T')[0] : '',
+        purchase_date: data.purchase_date ? data.purchase_date.split('T')[0] : '',
         warranty_info: data.warranty_info || '',
         description: data.description || '',
         default_team_id: data.default_team_id || '',

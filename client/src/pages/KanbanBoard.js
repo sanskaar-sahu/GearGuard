@@ -23,10 +23,12 @@ const KanbanBoard = () => {
 
   const fetchRequests = async () => {
     try {
+      setLoading(true);
       const response = await axios.get('http://localhost:5000/api/requests');
       setRequests(response.data);
     } catch (error) {
       console.error('Error fetching requests:', error);
+      alert('Error fetching requests: ' + (error.response?.data?.message || error.message));
     } finally {
       setLoading(false);
     }

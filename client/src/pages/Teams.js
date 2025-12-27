@@ -136,6 +136,33 @@ const Teams = () => {
                   ))}
                 </select>
               </div>
+              <div className="form-group">
+                <label>Team Members</label>
+                <div className="checkbox-group">
+                  {users.map((user) => (
+                    <label key={user.id} className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        checked={formData.member_ids.includes(user.id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFormData({
+                              ...formData,
+                              member_ids: [...formData.member_ids, user.id],
+                            });
+                          } else {
+                            setFormData({
+                              ...formData,
+                              member_ids: formData.member_ids.filter((id) => id !== user.id),
+                            });
+                          }
+                        }}
+                      />
+                      {user.name} ({user.role})
+                    </label>
+                  ))}
+                </div>
+              </div>
               <div className="form-actions">
                 <button type="button" className="btn-secondary" onClick={() => {
                   setShowForm(false);

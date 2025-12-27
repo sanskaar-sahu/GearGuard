@@ -19,10 +19,12 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
+      setLoading(true);
       const response = await axios.get('http://localhost:5000/api/dashboard');
       setStats(response.data);
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
+      alert('Error fetching dashboard data: ' + (error.response?.data?.message || error.message));
     } finally {
       setLoading(false);
     }

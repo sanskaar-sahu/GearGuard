@@ -25,6 +25,7 @@ const MaintenanceSchedule = () => {
       setRequests(response.data);
     } catch (error) {
       console.error('Error fetching preventive requests:', error);
+      alert('Error fetching preventive requests: ' + (error.response?.data?.message || error.message));
     }
   };
 
