@@ -1,0 +1,35 @@
+.work-center-page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.work-center-table-container {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.work-center-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.work-center-table thead {
+  background-color: #f8f9fa;
+}
+
+.work-center-table th {
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  color: #555;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.work-center-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
